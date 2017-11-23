@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import Menu from '../../components/Menu';
 import Sidebar from '../../components/Sidebar';
 
 import {
@@ -27,7 +26,6 @@ class App extends Component {
 					<Sidebar />
 					<SidebarPusher>
 						<MainContent>
-							<Menu />
 							<ComponentWrapper {...props} />
 						</MainContent>
 					</SidebarPusher>
