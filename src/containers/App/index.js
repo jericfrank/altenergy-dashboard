@@ -2,6 +2,14 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
 import Menu from '../../components/Menu';
+import Sidebar from '../../components/Sidebar';
+
+import {
+	PageLayout,
+	MainContent,
+	SidebarPushable,
+	SidebarPusher
+} from './style';
 
 class App extends Component {
 	constructor ( props ) {
@@ -14,11 +22,17 @@ class App extends Component {
 		const { component: ComponentWrapper } = this.props;
 
 		return (
-			<div>
-				<Menu />
-				<ComponentWrapper {...props} />
-				<div>Footer</div>
-			</div>
+			<PageLayout>
+				<SidebarPushable>
+					<Sidebar />
+					<SidebarPusher>
+						<MainContent>
+							<Menu />
+							<ComponentWrapper {...props} />
+						</MainContent>
+					</SidebarPusher>
+				</SidebarPushable>
+			</PageLayout>
 		);
 	}
 
