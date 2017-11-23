@@ -4,6 +4,7 @@ class ProjectPage extends Component {
   render() {
     return (
       <div>
+      	This is ProjectPage
       </div>
     );
   }

@@ -30,8 +30,10 @@ class Sidebar extends Component {
 	}
 
 	renderSideBarItem ( { icon, label, path }, key ) {
+		const { pathname } = this.props.location;
+
 		return (
-			<SidebarItem key={key} icon path={path} onClick={this.handleRedirect}>
+			<SidebarItem active={( pathname === path )} key={key} icon path={path} onClick={this.handleRedirect}>
 				<Icon name={icon} /> {label}
 			</SidebarItem>
 		);
