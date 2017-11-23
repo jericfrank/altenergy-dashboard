@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
+import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
 import {
@@ -25,6 +26,7 @@ class App extends Component {
 				<SidebarPushable>
 					<Sidebar />
 					<SidebarPusher>
+						<Header {...props} />
 						<MainContent>
 							<ComponentWrapper {...props} />
 						</MainContent>

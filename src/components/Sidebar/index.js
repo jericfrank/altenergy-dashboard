@@ -38,7 +38,7 @@ class Sidebar extends Component {
 	}
 
 	handleLogout () {
-		this.props.history.push( '/' );
+		alert( 'Logging out' );
 	}
 
 	render () {
