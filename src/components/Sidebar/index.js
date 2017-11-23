@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
-import { withRouter } from 'react-router-dom';
 
 import {
 	StyledSidebar,
@@ -69,4 +68,4 @@ class Sidebar extends Component {
 	}
 }
 
-export default withRouter( Sidebar );
+export default Sidebar;

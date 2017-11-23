@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, withRouter } from 'react-router-dom';
 
+import Authentication from '../../components/Auth/requireAuth';
 import Header from '../../components/Header';
 import Sidebar from '../../components/Sidebar';
 
@@ -18,17 +19,17 @@ class App extends Component {
 		this.renderLayout = this.renderLayout.bind( this );
 	}
 
-	renderLayout ( props ) {
+	renderLayout () {
 		const { component: ComponentWrapper } = this.props;
 
 		return (
 			<PageLayout>
 				<SidebarPushable>
-					<Sidebar />
+					<Sidebar {...this.props} />
 					<SidebarPusher>
-						<Header {...props} />
+						<Header {...this.props} />
 						<MainContent>
-							<ComponentWrapper {...props} />
+							<ComponentWrapper {...this.props} />
 						</MainContent>
 					</SidebarPusher>
 				</SidebarPushable>
@@ -36,13 +37,15 @@ class App extends Component {
 		);
 	}
 
-	render() {
-		const { computedMatch, exact, location, path } = this.props;
+	render () {
+		const { computedMatch, exact, location } = this.props;
 
 		return (
-			<Route computedMatch={computedMatch} exact={exact} location={location} path={path} render={this.renderLayout} />
+			<Route computedMatch={computedMatch} exact={exact} location={location} render={this.renderLayout} />
 		)
 	}
 }
 
-export default App;
+export default withRouter(
+	Authentication( App )
+);
