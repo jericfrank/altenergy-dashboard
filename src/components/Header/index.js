@@ -11,11 +11,11 @@ import {
 
 import {
 	Spacer
-} from '../Sidebar/style';
+} from 'components/Sidebar/style';
 
 import {
 	SIDEBAR_ITEMS
-} from '../Sidebar/constants';
+} from 'components/Sidebar/constants';
 
 import Headroom from 'react-headroom';
 

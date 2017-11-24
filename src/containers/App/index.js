@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
-import Authentication from '../../components/Auth/requireAuth';
-import Header from '../../components/Header';
-import Sidebar from '../../components/Sidebar';
+import Authentication from 'components/Auth/requireAuth';
+import Header from 'components/Header';
+import Sidebar from 'components/Sidebar';
 
 import {
 	PageLayout,

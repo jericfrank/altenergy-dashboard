@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from 'utils/registerServiceWorker';
 
-import App from './containers/App';
-import HomePage from './containers/HomePage';
-import ProjectPage from './containers/ProjectPage';
-import LoginPage from './containers/LoginPage';
+import App from 'containers/App';
+import HomePage from 'containers/HomePage';
+import ProjectPage from 'containers/ProjectPage';
+import LoginPage from 'containers/LoginPage';
 
 import 'semantic-ui-css/semantic.min.css';
 

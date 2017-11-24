@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { userJwtToken, expireJwtToken } from '../../utils/jwtToken';
+import { userJwtToken, expireJwtToken } from 'utils/jwtToken';
 
 export default ( WrappedComponent ) => {
     class RequireAuth extends Component {
