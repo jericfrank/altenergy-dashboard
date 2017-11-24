@@ -11,7 +11,7 @@ import {
 
 import {
 	Spacer
-} from 'components/Sidebar/style';
+} from 'styles/base';
 
 import {
 	SIDEBAR_ITEMS

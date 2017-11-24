@@ -2,13 +2,14 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 
+import { Spacer } from 'styles/base';
+
 import {
 	StyledSidebar,
 	SidebarItem,
 	SidebarLogoutItem,
 	SidebarLogoContainer,
-	SidebarLogo,
-	Spacer
+	SidebarLogo
 } from './style';
 
 import {

@@ -2,8 +2,6 @@ import { Menu, Sidebar } from 'semantic-ui-react';
 import styled from 'styled-components';
 import Logo from 'components/Logo';
 
-export const Spacer = styled.span`flex-grow: 1;`;
-
 export const SidebarLogo = styled(Logo)`margin: 5px;`;
 
 export const SidebarLogoContainer = styled.a`
