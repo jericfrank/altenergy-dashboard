@@ -1,9 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 import registerServiceWorker from 'utils/registerServiceWorker';
 
-import App from 'containers/App';
+import App from 'layouts/App';
+import Auth from 'layouts/Auth';
+
 import HomePage from 'containers/HomePage';
 import ProjectPage from 'containers/ProjectPage';
 import LoginPage from 'containers/LoginPage';
@@ -15,7 +17,7 @@ const Root = () => (
 		<Switch>
 			<App exact path='/' component={HomePage} />
 			<App exact path='/projects' component={ProjectPage} />
-			<Route exact path='/login' component={LoginPage} />
+			<Auth exact path='/login' component={LoginPage} />
 		</Switch>
 	</BrowserRouter>
 );

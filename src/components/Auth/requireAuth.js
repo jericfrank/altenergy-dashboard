@@ -17,11 +17,11 @@ export default ( WrappedComponent ) => {
                 try {
                     this.setState({ auth : { user : userJwtToken() } });
                 } catch ( err ) {
-                    console.log( err );        
+                    console.log( err );
                     expireJwtToken();
                 }
             } else {
-                // this.props.history.push( '/login' );
+                this.props.history.push( '/login' );
             }
         }
 
