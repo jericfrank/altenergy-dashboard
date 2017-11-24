@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 
+import { expireJwtToken } from 'utils/jwtToken';
 import { Spacer } from 'styles/base';
 
 import {
@@ -40,7 +41,8 @@ class Sidebar extends Component {
 	}
 
 	handleLogout () {
-		alert( 'Logging out' );
+		expireJwtToken();
+		this.props.history.push( '/login' );
 	}
 
 	render () {

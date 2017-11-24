@@ -9,6 +9,12 @@ class Auth extends Component {
 		this.renderLayout = this.renderLayout.bind( this );
 	}
 
+    componentWillMount () {
+        if ( localStorage.getItem( 'AltenergyToken' ) ) {
+            this.props.history.push( '/' );
+        }
+    }
+
 	renderLayout () {
 		const { component: ComponentWrapper } = this.props;
 
