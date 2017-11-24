@@ -21,7 +21,7 @@ export default ( WrappedComponent ) => {
                     expireJwtToken();
                 }
             } else {
-                this.props.history.push( '/login' );
+                // this.props.history.push( '/login' );
             }
         }
 
