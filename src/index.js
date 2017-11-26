@@ -15,7 +15,7 @@ import LoginPage from 'containers/LoginPage';
 import 'semantic-ui-css/semantic.min.css';
 
 const networkInterface = createNetworkInterface({
-	uri: '/graphql',
+	uri: 'http://ec2-13-59-87-238.us-east-2.compute.amazonaws.com:443',
 	opts: {
 		credentials: 'same-origin'
 	}
