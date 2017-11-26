@@ -24,12 +24,15 @@ class SidebarComponent extends Component {
 	}
 
 	render () {
-		const { pathname } = this.props.location;
+		const { location, auth } = this.props;
+		
+		const { user }     = auth;
+		const { pathname } = location;
 
 		return (
 			<Sidebar>
 				<Menu fluid inverted vertical>
-					<Menu.Item onClick={ () => {} }>
+					<Menu.Item>
 						<Image size='mini' spaced='right' src={Logo} />
 						<strong>Altenergy Projects</strong>
 					</Menu.Item>
@@ -49,7 +52,7 @@ class SidebarComponent extends Component {
 						</Menu.Menu>
 					</Menu.Item>
 			
-					<Dropdown upward item text='Jeric Frank Sasil' pointing='left'>
+					<Dropdown upward item text={user.name} pointing='left'>
 						<Dropdown.Menu>
 							<Dropdown.Item icon='edit' text='Profile Settings' />
 							<Dropdown.Item icon='configure' text='Change password' />
