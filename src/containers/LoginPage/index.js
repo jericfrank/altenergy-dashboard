@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { Button, Form, Header, Image, Message, Segment } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
 
-import Logo from 'components/Logo/Logo.png';
+import Logo from 'components/Sidebar/logo.png';
 import Helmet from 'components/Helmet';
 import { handleJwtToken } from 'utils/jwtToken';
 
@@ -55,7 +55,7 @@ class LoginPage extends Component {
         this.setState({ [e.target.name]: e.target.value });
     }
 
-    renderFormField ( { placeholder, icon }, key ) {
+    renderFormField ( { placeholder, icon, type }, key ) {
         return (
             <Form.Input
                 key={key}
@@ -66,6 +66,7 @@ class LoginPage extends Component {
                 placeholder={placeholder}
                 value={this.state[ key ]}
                 onChange={this.handleChange}
+                type={type}
             />
         );
     }
@@ -74,14 +75,14 @@ class LoginPage extends Component {
         return (
             <div>
                 <Helmet {...META} />
+                <Header as='h2' textAlign='center'>
+                    <Image src={Logo} />
+                    Altenergy Projects
+                </Header>
                 <Segment>
-                    <Header as='h2' color='blue' textAlign='center'>
-                        <Image src={Logo} />
-                        Log-in to your account
-                    </Header>
                     <Form size='large' onSubmit={this.handleSubmit}>
                         { _.map( FIELDS, this.renderFormField ) }
-                        <Button color='blue' fluid size='large' loading={this.state.loading} >Login</Button>
+                        <Button primary fluid size='large' loading={this.state.loading} >Login</Button>
                     </Form>
                     <Message
                         hidden={_.isEmpty(this.state.errors)}

@@ -24,7 +24,8 @@ class Auth extends Component {
                     body > div,
                     body > div > div,
                     body > div > div > div.login-form {
-                        height: 100%;
+                        height     : 100%;
+                        background : #FAFBFC;
                     }
                 `}</style>
                 <Grid
