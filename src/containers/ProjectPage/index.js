@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 
-import Helmet from 'components/Helmet';
+import Header from 'components/Header';
 
 class ProjectPage extends Component {
 	render() {
 		return (
 			<div>
-				<Helmet title='Projects' />
-				<Header as='h1'>Projects</Header>
+				<Header title='Projects' />
 			</div>
 		);
 	}

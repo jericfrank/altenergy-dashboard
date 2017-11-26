@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import { Header } from 'semantic-ui-react';
 
-import Helmet from 'components/Helmet';
+import Header from 'components/Header';
 
 class HomePage extends Component {
 	render() {
 		return (
 			<div>
-				<Helmet title='Dashboard' />
-				<Header as='h1'>Dashboard</Header>
+				<Header title='Dashboard' />
 			</div>
 		);
 	}
