@@ -1,0 +1,28 @@
+---
+- hosts: dev
+  tasks:
+    - name: Build production
+      local_action:
+        module: command yarn build chdir=../
+
+    - name: Compressed build files (local)
+      local_action:
+        module: command chdir=../ tar -zcvf build.tar.gz build/
+
+    - name: Delete directory (server)
+      become: true
+      file:
+        state: absent
+        path: /home/ubuntu/altenergy-dashboard
+
+    - name: Create directory (server)
+      become: true
+      file:
+        state: directory
+        path: /home/ubuntu/altenergy-dashboard
+    
+    - name: Extract build files directory (server)
+      become: true
+      unarchive:
+        src: ../build.tar.gz
+        dest: /home/ubuntu/altenergy-dashboard

@@ -9,6 +9,9 @@
 # production
 /build
 
+# Ansible
+playbook/hosts
+
 # misc
 .DS_Store
 .env
