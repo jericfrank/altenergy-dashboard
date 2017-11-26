@@ -1,43 +1,21 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
-import { Menu, Icon } from 'semantic-ui-react';
+import { Dropdown, Menu, Image } from 'semantic-ui-react';
 
 import { expireJwtToken } from 'utils/jwtToken';
-import { Spacer } from 'styles/base';
 
-import {
-	StyledSidebar,
-	SidebarItem,
-	SidebarLogoutItem,
-	SidebarLogoContainer,
-	SidebarLogo
-} from './style';
+import Logo from './logo.png';
+import { Sidebar } from './style';
 
-import {
-	SIDEBAR_ITEMS
-} from './constants';
-
-class Sidebar extends Component {
+class SidebarComponent extends Component {
 	constructor ( props ) {
 		super( props );
 
-		this.renderSideBarItem = this.renderSideBarItem.bind( this );
-		this.handleRedirect    = this.handleRedirect.bind( this );
-		this.handleLogout      = this.handleLogout.bind( this );
+		this.handleLogout   = this.handleLogout.bind( this );
+		this.handleRedirect = this.handleRedirect.bind( this );
 	}
 
 	handleRedirect ( e, { path } ) {
 		this.props.history.push( path );
-	}
-
-	renderSideBarItem ( { icon, label, path }, key ) {
-		const { pathname } = this.props.location;
-
-		return (
-			<SidebarItem active={( pathname === path )} key={key} icon path={path} onClick={this.handleRedirect}>
-				<Icon name={icon} /> {label}
-			</SidebarItem>
-		);
 	}
 
 	handleLogout () {
@@ -46,29 +24,44 @@ class Sidebar extends Component {
 	}
 
 	render () {
-		const sidebarProps = {
-			visible   : true,
-			as        : Menu,
-			vertical  : true,
-			icon      : 'labeled',
-			animation : 'push',
-			width     : 'thin'
-		};
+		const { pathname } = this.props.location;
 
 		return (
-			<StyledSidebar {...sidebarProps}>
-				<SidebarLogoContainer href="/">
-					<SidebarLogo alt="logo" shape="circular" centered />
-				</SidebarLogoContainer>
-				{ _.map( SIDEBAR_ITEMS, this.renderSideBarItem ) }
-				<Spacer />
-				<SidebarLogoutItem onClick={this.handleLogout}>
-					<Icon name="sign out" />
-					Logout
-				</SidebarLogoutItem>
-			</StyledSidebar>
+			<Sidebar>
+				<Menu fluid inverted vertical>
+					<Menu.Item onClick={ () => {} }>
+						<Image size='mini' spaced='right' src={Logo} />
+						<strong>Altenergy Projects</strong>
+					</Menu.Item>
+					<Menu.Item>
+						Menu
+						<Menu.Menu>
+							<Menu.Item name='Dashboard' icon='dashboard' active={( pathname === '/' )} path='/' onClick={this.handleRedirect} />
+							<Menu.Item name='Create' icon='add' />
+							<Menu.Item name='Projects' icon='folder' active={( pathname === '/projects' )} path='/projects' onClick={this.handleRedirect} />
+						</Menu.Menu>
+					</Menu.Item>
+
+					<Menu.Item>
+						Settings
+						<Menu.Menu>
+							<Menu.Item name='Account' icon='settings' />
+						</Menu.Menu>
+					</Menu.Item>
+			
+					<Dropdown upward item text='Jeric Frank Sasil' pointing='left'>
+						<Dropdown.Menu>
+							<Dropdown.Item icon='edit' text='Profile Settings' />
+							<Dropdown.Item icon='configure' text='Change password' />
+							<Dropdown.Item icon='settings' text='Account Settings' />
+							<Dropdown.Divider />
+							<Dropdown.Item icon='lock' text='Logout' onClick={this.handleLogout} />
+						</Dropdown.Menu>
+					</Dropdown>						
+				</Menu>
+			</Sidebar>
 		)
 	}
 }
 
-export default Sidebar;
+export default SidebarComponent;

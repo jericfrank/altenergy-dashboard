@@ -1,22 +1,22 @@
 import styled from 'styled-components';
-import { Sidebar } from 'semantic-ui-react';
 
-export const PageLayout = styled.div`height: 100%;`;
-
-export const MainContent = styled.main`
-	min-height     : calc(100% - 72px);
-	display        : flex;
-	flex-direction : column;
-	padding        : 15px;
+export const Wrapper = styled.div`
 `;
 
-export const SidebarPushable = styled(Sidebar.Pushable)`
-	display : initial;
-	> .pusher {
-		overflow : visible !important;
-	}
+export const Sidebar = styled.div`
+	width      : 210px;
+	height     : 100%;
+	background : #1b1c1d;
+	position   : fixed;
+	z-index    : 1;
 `;
 
-export const SidebarPusher = styled(Sidebar.Pusher)`
-	-webkit-overflow-scrolling : touch;
+export const Content = styled.div`
+	width         : 100%;
+	height        : 100vh;
+	background    : #FAFBFC;
+	padding-left  : 225px;
+	padding-right : 15px;
+	padding-top   : 15px;
+	padding-bottom: 15px;
 `;

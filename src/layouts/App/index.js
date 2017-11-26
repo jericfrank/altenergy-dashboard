@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
 
 import Authentication from 'components/Auth/requireAuth';
-import Header from 'components/Header';
 import Sidebar from 'components/Sidebar';
 
 import {
-	PageLayout,
-	MainContent,
-	SidebarPushable,
-	SidebarPusher
+	Wrapper,
+	Content
 } from './style';
 
 class App extends Component {
@@ -23,17 +20,12 @@ class App extends Component {
 		const { component: ComponentWrapper } = this.props;
 
 		return (
-			<PageLayout>
-				<SidebarPushable>
-					<Sidebar {...this.props} />
-					<SidebarPusher>
-						<Header {...this.props} />
-						<MainContent>
-							<ComponentWrapper {...this.props} />
-						</MainContent>
-					</SidebarPusher>
-				</SidebarPushable>
-			</PageLayout>
+			<Wrapper>
+				<Sidebar {...this.props} />
+				<Content>
+					<ComponentWrapper {...this.props} />
+				</Content>
+			</Wrapper>
 		);
 	}
 
