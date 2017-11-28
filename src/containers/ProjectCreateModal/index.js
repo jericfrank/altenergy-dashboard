@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Button, Modal, Segment, Header, Form, Loader, Dimmer } from 'semantic-ui-react';
+import { Button, Modal, Segment, Header, Form, Loader, Dimmer, Divider } from 'semantic-ui-react';
 
 import FormField from 'components/FormField';
 
@@ -37,16 +37,17 @@ class ProjectCreateModal extends Component {
 
     renderForms ( { label, fields }, key ) {
         return (
-            <Segment.Group key={key}>
-                <Header as='h5' attached='top'>
+            <div key={key}>
+                <Header as='h2'>
                     {label}
                 </Header>
-                <Segment>
+                <Segment basic>
                     <Form>
                         { _.map( fields, ( value, key ) => <FormField value={this.state.fields[key]} data={this.props.data} handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
                     </Form>
                 </Segment>
-            </Segment.Group>
+                <Divider hidden/>
+            </div>
         );
     }
 
@@ -73,7 +74,6 @@ class ProjectCreateModal extends Component {
 
         return (
             <Modal trigger={trigger} {...MODAL_PROPS}>
-                <Modal.Header>Create Project</Modal.Header>
                 <Modal.Content>
                     {this.renderContent()}
                 </Modal.Content>

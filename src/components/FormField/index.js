@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
 
+import { OPTIONS_PROPS } from './constants';
+
 class FormField extends Component {
     constructor () {
         super ();
@@ -13,9 +15,17 @@ class FormField extends Component {
     }
 
     renderFieldSelect () {
+        let optionData = {};
+        
         const { label, placeholder, handleChange, index, data, options, value } = this.props;
 
-        const optionItems = _.map( data[ options.prop ], ( { name, _id }, key ) => {
+        optionData = data[ options.prop ];
+
+        if ( _.isEmpty( optionData ) ) {
+            optionData = OPTIONS_PROPS[ options.prop ];
+        }
+
+        const optionItems = _.map( optionData, ( { name, _id }, key ) => {
             return {
                 key,
                 text  : name,
