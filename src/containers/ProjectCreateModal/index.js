@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Button, Modal, Segment, Header, Form } from 'semantic-ui-react';
+import { Button, Modal, Segment, Header, Form, Loader, Dimmer } from 'semantic-ui-react';
 
 import FormField from 'components/FormField';
 
@@ -16,7 +16,7 @@ class ProjectCreateModal extends Component {
         this.renderForms   = this.renderForms.bind( this );
         this.handleChange  = this.handleChange.bind( this );
     }
-    
+
     handleChange () {
         console.log( 'change!' );
     }
@@ -27,9 +27,9 @@ class ProjectCreateModal extends Component {
                 <Header as='h5' attached='top'>
                     {label}
                 </Header>
-                <Segment secondary>
+                <Segment>
                     <Form>
-                        { _.map( fields, ( value, key ) => <FormField handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
+                        { _.map( fields, ( value, key ) => <FormField data={this.props.data} handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
                     </Form>
                 </Segment>
             </Segment.Group>
@@ -39,8 +39,14 @@ class ProjectCreateModal extends Component {
     renderContent () {
         const { loading } = this.props.data;
 
-        console.log( loading );
-        
+        if ( loading ) {
+            return (
+                <Dimmer active inverted>
+                    <Loader inverted content='Loading' />
+                </Dimmer>
+            );
+        }
+
         return (
             <div>
                 { _.map( FORM_FIELDS, this.renderForms ) }

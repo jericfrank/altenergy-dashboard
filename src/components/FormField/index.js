@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form } from 'semantic-ui-react';
@@ -12,19 +13,20 @@ class FormField extends Component {
     }
 
     renderFieldSelect () {
-        const { label, placeholder, handleChange, index } = this.props;
+        const { label, placeholder, handleChange, index, data, options } = this.props;
 
-        console.log( handleChange );
-
-        const options = [
-            { key: 'm', text: 'Male', value: 'male' },
-            { key: 'f', text: 'Female', value: 'female' },
-        ];
+        const optionItems = _.map( data[ options.prop ], ( { name, _id }, key ) => {
+            return {
+                key,
+                text  : name,
+                value : _id
+            };
+        } );
 
         return (
             <Form.Field>
                 <label>{label}</label>
-                <Form.Select onChange={handleChange} name={index} options={options} placeholder={placeholder} />
+                <Form.Select onChange={handleChange} name={index} options={optionItems} placeholder={placeholder} />
             </Form.Field>
         );
     }
@@ -57,7 +59,8 @@ class FormField extends Component {
 
 FormField.propTypes = {
     handleChange : PropTypes.func.isRequired,
-    index        : PropTypes.string.isRequired
+    index        : PropTypes.string.isRequired,
+    data         : PropTypes.object.isRequired
 };
 
 export default FormField;
