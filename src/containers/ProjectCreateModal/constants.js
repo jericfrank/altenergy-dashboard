@@ -199,5 +199,65 @@ export const FORM_FIELDS = {
 				}
 			}
 		}
+	},
+	contracts : {
+		label  : 'Electricity Contracts',
+		fields : {
+			type : {
+				type        : 'text',
+				label       : 'Contract Type',
+				placeholder : 'long term supply'
+			},
+			form_of_compensation : {
+				type        : 'text',
+				label       : 'Form of Compensation',
+				placeholder : 'tarrif'
+			},
+			feed_in_tarrif : {
+				type        : 'select',
+				label       : 'Feed-in Tarrif',
+				placeholder : 'Access',
+				required    : true,
+				options     : {
+					prop  : 'yes_no',
+					key   : '_id',
+					text  : 'name',
+					value : '_id'
+				}
+			},
+			buyer : {
+				type        : 'text',
+				label       : 'Buyer',
+				placeholder : 'Counter party',
+				required    : true
+			},
+			term : {
+				type        : 'text',
+				label       : 'Contract term',
+				placeholder : 'years'
+			},
+						start : {
+				type        : 'text',
+				label       : 'Contract start',
+				placeholder : 'start'
+			},
+			price : {
+				type        : 'text',
+				label       : 'Price',
+				placeholder : 'per kWh'
+			},
+			index_linked : {
+				type        : 'select',
+				label       : 'Index linked',
+				placeholder : 'Index linked',
+				required    : true,
+				options     : {
+					prop  : 'yes_no',
+					key   : '_id',
+					text  : 'name',
+					value : '_id'
+				}
+			}
+		}
 	}
 };
