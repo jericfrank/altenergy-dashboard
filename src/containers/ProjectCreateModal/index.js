@@ -5,6 +5,7 @@ import { Button, Modal, Segment, Header, Form, Loader, Dimmer, Divider } from 's
 
 import FormField from 'components/FormField';
 
+import validate from './validate';
 import query from './queries';
 import { FIELDS, FORM_FIELDS, MODAL_PROPS } from './constants';
 
@@ -13,7 +14,8 @@ class ProjectCreateModal extends Component {
         super ();
 
         this.state = {
-            fields : FIELDS
+            fields : FIELDS,
+            errors : []
         };
 
         this.renderContent = this.renderContent.bind( this );
@@ -23,7 +25,13 @@ class ProjectCreateModal extends Component {
     }
 
     handleSubmit () {
-        console.log( this.state );
+        const { errors, empty } = validate( this.state.fields );
+
+        if ( empty ) {
+            console.log( this.state );
+        } else {
+            this.setState({ errors });
+        }
     }
 
     handleChange ( e, { name, value } ) {
@@ -31,6 +39,10 @@ class ProjectCreateModal extends Component {
             fields : {
                 ...this.state.fields,
                 [name] : value
+            },
+            errors : {
+                ...this.state.errors,
+                [name] : []
             }
         });
     }
@@ -43,7 +55,7 @@ class ProjectCreateModal extends Component {
                 </Header>
                 <Segment basic>
                     <Form>
-                        { _.map( fields, ( value, key ) => <FormField value={this.state.fields[key]} data={this.props.data} handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
+                        { _.map( fields, ( value, key ) => <FormField errors={this.state.errors[key]} value={this.state.fields[key]} data={this.props.data} handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
                     </Form>
                 </Segment>
                 <Divider hidden/>

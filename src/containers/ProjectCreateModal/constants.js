@@ -46,7 +46,11 @@ export const FORM_FIELDS = {
 				type        : 'text',
 				label       : 'Project Name',
 				placeholder : 'Project Name',
-				required    : true
+				required    : true,
+				length      : {
+					min : 3,
+					max : 50
+				}
 			},
 			project_type_id : {
 				type        : 'select',
