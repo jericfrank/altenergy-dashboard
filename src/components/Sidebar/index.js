@@ -30,7 +30,7 @@ class SidebarComponent extends Component {
 		const { pathname } = location;
 
 		const text = (
-			<div><Image src={Avatar} avatar /> <span>{user.name}</span></div>
+			<span><Image src={Avatar} avatar /> {user.name}</span>
 		);
 
 		return (
@@ -54,13 +54,13 @@ class SidebarComponent extends Component {
 						<Menu.Item name='Account' icon='settings' />
 					</Menu.Menu>
 				</Menu.Item>
-				<Dropdown upward item text={text} pointing='left' style={{ position: 'absolute', bottom: 0, width: '100%' }}>
+				<Dropdown upward item trigger={text} icon={null} style={{ position: 'absolute', bottom: 0, width: '100%' }}>
 					<Dropdown.Menu>
-						<Dropdown.Item icon='edit' text='Profile Settings' />
-						<Dropdown.Item icon='configure' text='Change password' />
-						<Dropdown.Item icon='settings' text='Account Settings' />
+						<Dropdown.Item text='Profile Settings' />
+						<Dropdown.Item text='Change password' />
+						<Dropdown.Item text='Account Settings' />
 						<Dropdown.Divider />
-						<Dropdown.Item icon='lock' text='Logout' onClick={this.handleLogout} />
+						<Dropdown.Item text='Logout' onClick={this.handleLogout} />
 					</Dropdown.Menu>
 				</Dropdown>
 			</Menu>
