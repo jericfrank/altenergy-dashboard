@@ -2,7 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Switch } from 'react-router-dom';
 import { ApolloProvider } from 'react-apollo';
-import ApolloClient, { createNetworkInterface } from 'apollo-client';
+
+import ApolloClient from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { setContext } from 'apollo-link-context';
+
 import registerServiceWorker from 'utils/registerServiceWorker';
 
 import App from 'layouts/App';
@@ -14,15 +19,25 @@ import LoginPage from 'containers/LoginPage';
 
 import 'semantic-ui-css/semantic.min.css';
 
-const networkInterface = createNetworkInterface({
-	uri: 'http://ec2-13-59-87-238.us-east-2.compute.amazonaws.com:443',
-	opts: {
-		credentials: 'same-origin'
+const httpLink = createHttpLink({
+  uri: 'http://ec2-13-59-87-238.us-east-2.compute.amazonaws.com:443',
+});
+
+const authLink = setContext((_, { headers }) => {
+	// get the authentication token from local storage if it exists
+	const token = localStorage.getItem('AltenergyToken');
+	// return the headers to the context so httpLink can read them
+	return {
+		headers: {
+			...headers,
+			authorization: token ? `Bearer ${token}` : null,
+		}
 	}
 });
 
 const client = new ApolloClient({
-	networkInterface
+	link  : authLink.concat(httpLink),
+	cache : new InMemoryCache()
 });
 
 const Root = () => (
