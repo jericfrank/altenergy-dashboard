@@ -13,7 +13,7 @@ class FormField extends Component {
     }
 
     renderFieldSelect () {
-        const { label, placeholder, handleChange, index, data, options } = this.props;
+        const { label, placeholder, handleChange, index, data, options, value } = this.props;
 
         const optionItems = _.map( data[ options.prop ], ( { name, _id }, key ) => {
             return {
@@ -26,18 +26,18 @@ class FormField extends Component {
         return (
             <Form.Field>
                 <label>{label}</label>
-                <Form.Select onChange={handleChange} name={index} options={optionItems} placeholder={placeholder} />
+                <Form.Select onChange={handleChange} name={index} value={value} options={optionItems} placeholder={placeholder} />
             </Form.Field>
         );
     }
 
     renderFieldText () {
-        const { label, placeholder, handleChange, index } = this.props;
+        const { label, placeholder, handleChange, index, value } = this.props;
 
         return (
             <Form.Field>
                 <label>{label}</label>
-                <input onChange={handleChange} name={index} placeholder={placeholder} />
+                <Form.Input onChange={handleChange} name={index} value={value} placeholder={placeholder}/>
             </Form.Field>
         );
     }

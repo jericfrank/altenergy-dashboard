@@ -3,6 +3,13 @@ export const MODAL_PROPS = {
 	dimmer : 'blurring'
 };
 
+export const FIELDS = {
+	name              : '',
+	project_type_id   : '',
+	project_status_id : '',
+	state_id          : ''
+};
+
 export const FORM_FIELDS = {
 	basic : {
 		label : 'Get Started with the Basics',

@@ -6,19 +6,33 @@ import { Button, Modal, Segment, Header, Form, Loader, Dimmer } from 'semantic-u
 import FormField from 'components/FormField';
 
 import query from './queries';
-import { FORM_FIELDS, MODAL_PROPS } from './constants';
+import { FIELDS, FORM_FIELDS, MODAL_PROPS } from './constants';
 
 class ProjectCreateModal extends Component {
     constructor () {
         super ();
 
+        this.state = {
+            fields : FIELDS
+        };
+
         this.renderContent = this.renderContent.bind( this );
         this.renderForms   = this.renderForms.bind( this );
         this.handleChange  = this.handleChange.bind( this );
+        this.handleSubmit  = this.handleSubmit.bind( this );
     }
 
-    handleChange () {
-        console.log( 'change!' );
+    handleSubmit () {
+        console.log( this.state );
+    }
+
+    handleChange ( e, { name, value } ) {
+        this.setState({
+            fields : {
+                ...this.state.fields,
+                [name] : value
+            }
+        });
     }
 
     renderForms ( { label, fields }, key ) {
@@ -29,7 +43,7 @@ class ProjectCreateModal extends Component {
                 </Header>
                 <Segment>
                     <Form>
-                        { _.map( fields, ( value, key ) => <FormField data={this.props.data} handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
+                        { _.map( fields, ( value, key ) => <FormField value={this.state.fields[key]} data={this.props.data} handleChange={this.handleChange} {...value} key={key} index={key}/> ) }
                     </Form>
                 </Segment>
             </Segment.Group>
@@ -50,7 +64,6 @@ class ProjectCreateModal extends Component {
         return (
             <div>
                 { _.map( FORM_FIELDS, this.renderForms ) }
-                <Button positive labelPosition='right' icon='checkmark' content='Submit' floated='right'/>
             </div>
         );
     }
@@ -61,9 +74,12 @@ class ProjectCreateModal extends Component {
         return (
             <Modal trigger={trigger} {...MODAL_PROPS}>
                 <Modal.Header>Create Project</Modal.Header>
-                <Modal.Content scrolling>
+                <Modal.Content>
                     {this.renderContent()}
                 </Modal.Content>
+                <Modal.Actions>
+                    <Button positive content='Submit' onClick={this.handleSubmit}/>
+                </Modal.Actions>
             </Modal>
         );
     }
