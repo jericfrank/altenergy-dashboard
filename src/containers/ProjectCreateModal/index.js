@@ -1,12 +1,14 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
 import { Button, Modal, Segment, Header, Form, Loader, Dimmer, Divider } from 'semantic-ui-react';
 
 import FormField from 'components/FormField';
 
-import validate from './validate';
+import mutation from './mutations';
 import query from './queries';
+import validate from './validate';
 import { FIELDS, FORM_FIELDS, MODAL_PROPS } from './constants';
 
 class ProjectCreateModal extends Component {
@@ -14,8 +16,9 @@ class ProjectCreateModal extends Component {
         super ();
 
         this.state = {
-            fields : FIELDS,
-            errors : []
+            fields  : FIELDS,
+            errors  : [],
+            loading : false
         };
 
         this.renderContent = this.renderContent.bind( this );
@@ -25,12 +28,34 @@ class ProjectCreateModal extends Component {
     }
 
     handleSubmit () {
+        this.setState({ loading: true });
+
         const { errors, empty } = validate( this.state.fields );
 
         if ( empty ) {
-            console.log( this.state );
+            const payload = {
+                'basic' : {},
+                'location' : {},
+                'technical' : {},
+                'contracts' : {}
+            };
+
+            _.map( FORM_FIELDS, ( values, key ) => _.map( values.fields, ( value, k ) => _.extend( payload[key], { [k]: this.state.fields[ k ] } ) ) );
+
+            this.props.mutate({
+                variables: {
+                    projects              : payload.basic,
+                    location              : payload.location,
+                    technical_info        : payload.technical,
+                    electricity_contracts : payload.contracts
+                }
+            }).then( ( res ) => {
+                console.log( res );
+
+                this.setState({ loading: false });
+            } );
         } else {
-            this.setState({ errors });
+            this.setState({ errors, loading: false });
         }
     }
 
@@ -64,16 +89,6 @@ class ProjectCreateModal extends Component {
     }
 
     renderContent () {
-        const { loading } = this.props.data;
-
-        if ( loading ) {
-            return (
-                <Dimmer active inverted>
-                    <Loader inverted content='Loading' />
-                </Dimmer>
-            );
-        }
-
         return (
             <div>
                 { _.map( FORM_FIELDS, this.renderForms ) }
@@ -82,11 +97,14 @@ class ProjectCreateModal extends Component {
     }
 
     render () {
-        const { trigger } = this.props;
+        const { trigger, loading } = this.props;
 
         return (
             <Modal trigger={trigger} {...MODAL_PROPS}>
                 <Modal.Content>
+                    <Dimmer active={ loading || this.state.loading } inverted>
+                        <Loader inverted content='Loading' />
+                    </Dimmer>
                     {this.renderContent()}
                 </Modal.Content>
                 <Modal.Actions>
@@ -97,4 +115,10 @@ class ProjectCreateModal extends Component {
     }
 }
 
-export default graphql( query )( ProjectCreateModal );
+ProjectCreateModal.propTypes = {
+    auth : PropTypes.object.isRequired,
+};
+
+export default graphql( mutation )(
+    graphql( query )( ProjectCreateModal )
+);

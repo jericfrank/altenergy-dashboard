@@ -21,7 +21,7 @@ class ProjectPage extends Component {
 
 		return (
 			<Segment basic vertical>
-				<ProjectCreateModal trigger={trigger} />
+				<ProjectCreateModal {...this.props} trigger={trigger} />
 				<Header title='Projects' />
 			</Segment>
 		);
