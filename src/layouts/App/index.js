@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
+import { withApollo } from 'react-apollo';
 
 import Authentication from 'components/Auth/requireAuth';
 import Sidebar from 'components/Sidebar';
@@ -38,6 +39,8 @@ class App extends Component {
 	}
 }
 
-export default withRouter(
-	Authentication( App )
+export default withApollo(
+	withRouter(
+		Authentication( App )
+	)
 );

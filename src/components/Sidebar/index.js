@@ -20,6 +20,9 @@ class SidebarComponent extends Component {
 
 	handleLogout () {
 		expireJwtToken();
+		
+		this.props.client.resetStore();
+
 		this.props.history.push( '/login' );
 	}
 
