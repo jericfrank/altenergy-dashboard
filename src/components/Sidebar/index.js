@@ -20,7 +20,7 @@ class SidebarComponent extends Component {
 
 	handleLogout () {
 		expireJwtToken();
-		
+
 		this.props.client.resetStore();
 
 		this.props.history.push( '/login' );
@@ -46,7 +46,6 @@ class SidebarComponent extends Component {
 					Menu
 					<Menu.Menu>
 						<Menu.Item name='Dashboard' icon='dashboard' active={( pathname === '/' )} path='/' onClick={this.handleRedirect} />
-						<Menu.Item name='Create' icon='add' />
 						<Menu.Item name='Projects' icon='folder' active={( pathname === '/projects' )} path='/projects' onClick={this.handleRedirect} />
 					</Menu.Menu>
 				</Menu.Item>
@@ -54,7 +53,7 @@ class SidebarComponent extends Component {
 				<Menu.Item>
 					Settings
 					<Menu.Menu>
-						<Menu.Item name='Account' icon='settings' />
+						<Menu.Item name='Account' icon='settings' active={( pathname === '/account' )} path='/account' onClick={this.handleRedirect} />
 					</Menu.Menu>
 				</Menu.Item>
 				<Dropdown upward item trigger={text} icon={null} style={{ position: 'absolute', bottom: 0, width: '100%' }}>

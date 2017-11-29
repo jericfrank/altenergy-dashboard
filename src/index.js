@@ -13,6 +13,7 @@ import registerServiceWorker from 'utils/registerServiceWorker';
 import App from 'layouts/App';
 import Auth from 'layouts/Auth';
 
+import AccountPage from 'containers/AccountPage';
 import HomePage from 'containers/HomePage';
 import ProjectPage from 'containers/ProjectPage';
 import LoginPage from 'containers/LoginPage';
@@ -46,6 +47,7 @@ const Root = () => (
 			<Switch>
 				<App exact path='/' component={HomePage} />
 				<App exact path='/projects' component={ProjectPage} />
+                <App exact path='/account' component={AccountPage} />
 				<Auth exact path='/login' component={LoginPage} />
 			</Switch>
 		</BrowserRouter>
