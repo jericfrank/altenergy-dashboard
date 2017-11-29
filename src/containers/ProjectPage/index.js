@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { Button, Icon, Segment } from 'semantic-ui-react';
+import { Button, Icon, Segment, Divider } from 'semantic-ui-react';
+import { graphql } from 'react-apollo';
 
+import ProjectList from 'containers/ProjectList';
 import ProjectCreateModal from 'containers/ProjectCreateModal';
+
+import query from './queries';
 
 import Header from 'components/Header';
 
@@ -31,9 +35,11 @@ class ProjectPage extends Component {
 		return (
 			<div>
 				{this.renderHeader()}
+				<Divider hidden/>
+				<ProjectList {...this.props}/>
 			</div>
 		);
 	}
 }
 
-export default ProjectPage;
+export default graphql( query )( ProjectPage );
