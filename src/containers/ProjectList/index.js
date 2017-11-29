@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
-import { Header, Table } from 'semantic-ui-react';
+import { Header, Table, Dimmer, Loader, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 
 class ProjectList extends Component {
@@ -58,10 +58,15 @@ class ProjectList extends Component {
 
 	render() {
 		return (
-            <Table celled padded selectable singleLine>
-                {this.renderTableHeader()}
-                {this.renderTableBody()}
-            </Table>
+            <Segment basic vertical>
+                <Dimmer active={this.props.data.loading} inverted>
+                    <Loader inverted content='Loading' />
+                </Dimmer>
+                <Table celled padded selectable singleLine>
+                    {this.renderTableHeader()}
+                    {this.renderTableBody()}
+                </Table>
+            </Segment>
 		);
 	}
 }
