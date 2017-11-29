@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Segment, Divider } from 'semantic-ui-react';
+import { Segment, Divider } from 'semantic-ui-react';
 import { graphql } from 'react-apollo';
 
 import ProjectList from 'containers/ProjectList';
@@ -17,13 +17,9 @@ class ProjectPage extends Component {
     }
 
 	renderHeader () {
-		const trigger = (
-			<Button primary floated='right' content='Create Project' icon='plus' labelPosition='left' />
-		);
-
 		return (
 			<Segment basic vertical>
-				<ProjectCreateModal {...this.props} trigger={trigger} />
+				<ProjectCreateModal {...this.props} />
 				<Header title='Projects' />
 			</Segment>
 		);

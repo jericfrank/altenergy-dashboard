@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route, withRouter } from 'react-router-dom';
+import Notifications from 'react-notify-toast';
 import { withApollo } from 'react-apollo';
 
 import Authentication from 'components/Auth/requireAuth';
@@ -25,6 +26,7 @@ class App extends Component {
 				<Sidebar {...this.props} />
 				<Content>
 					<ComponentWrapper {...this.props} />
+					<Notifications options={{zIndex: 5000}} />
 				</Content>
 			</Wrapper>
 		);

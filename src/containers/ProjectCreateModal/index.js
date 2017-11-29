@@ -2,7 +2,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { graphql } from 'react-apollo';
-import { Button, Modal, Segment, Header, Form, Loader, Dimmer, Divider } from 'semantic-ui-react';
+import { notify } from 'react-notify-toast';
+import { Message, Button, Modal, Segment, Header, Form, Loader, Dimmer, Divider, Icon } from 'semantic-ui-react';
 
 import FormField from 'components/FormField';
 
@@ -18,7 +19,8 @@ class ProjectCreateModal extends Component {
         this.state = {
             fields  : FIELDS,
             errors  : [],
-            loading : false
+            loading : false,
+            open    : false
         };
 
         this.renderContent = this.renderContent.bind( this );
@@ -49,10 +51,14 @@ class ProjectCreateModal extends Component {
                     technical_info        : payload.technical,
                     electricity_contracts : payload.contracts
                 }
-            }).then( ( res ) => {
-                console.log( res );
+            }).then( ( { data } ) => {
+                const message = `${data.project_create_relationship.name} is successfuly saved.`;
 
-                this.setState({ loading: false });
+                this.setState({ open : false })
+
+                notify.show( message, 'success', 5000, null );
+
+                this.setState({ loading: false, fields : FIELDS });
             } );
         } else {
             this.setState({ errors, loading: false });
@@ -89,6 +95,14 @@ class ProjectCreateModal extends Component {
     }
 
     renderContent () {
+        if ( this.props.loading || this.state.loading ) {
+            return (
+                <Dimmer active inverted>
+                    <Loader inverted content='Loading' />
+                </Dimmer>
+            );
+        }
+
         return (
             <div>
                 { _.map( FORM_FIELDS, this.renderForms ) }
@@ -97,20 +111,22 @@ class ProjectCreateModal extends Component {
     }
 
     render () {
-        const { trigger, loading } = this.props;
-
         return (
-            <Modal trigger={trigger} {...MODAL_PROPS}>
-                <Modal.Content>
-                    <Dimmer active={ loading || this.state.loading } inverted>
-                        <Loader inverted content='Loading' />
-                    </Dimmer>
-                    {this.renderContent()}
-                </Modal.Content>
-                <Modal.Actions>
-                    <Button positive content='Submit' onClick={this.handleSubmit}/>
-                </Modal.Actions>
-            </Modal>
+            <div>
+                <Button onClick={() => this.setState({ open : !this.state.open })} primary floated='right' content='Create Project' icon='plus' labelPosition='left' />
+                <Modal open={this.state.open} {...MODAL_PROPS} closeIcon={<Icon onClick={() => this.setState({ open : false })} name='close'/>}>
+                    <Modal.Content>
+                        {this.renderContent()}
+                        <Message size='tiny' error hidden={ _.isEmpty( this.state.errors ) }>
+                            <Message.Header>There is an error in your input</Message.Header>
+                        </Message>
+                    </Modal.Content>
+                    <Modal.Actions>
+                        <Button content='Cancel' onClick={() => this.setState({ open : false })}/>
+                        <Button positive content='Submit' onClick={this.handleSubmit}/>
+                    </Modal.Actions>
+                </Modal>
+            </div>
         );
     }
 }
