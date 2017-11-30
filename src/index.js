@@ -16,6 +16,7 @@ import Auth from 'layouts/Auth';
 import AccountPage from 'containers/AccountPage';
 import HomePage from 'containers/HomePage';
 import ProjectPage from 'containers/ProjectPage';
+import ProjectViewPage from 'containers/ProjectViewPage';
 import LoginPage from 'containers/LoginPage';
 
 import 'semantic-ui-css/semantic.min.css';
@@ -37,8 +38,9 @@ const authLink = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
-	link  : authLink.concat(httpLink),
-	cache : new InMemoryCache()
+    dataIdFromObject : o => o._id,
+	link             : authLink.concat(httpLink),
+	cache            : new InMemoryCache()
 });
 
 const Root = () => (
@@ -47,6 +49,7 @@ const Root = () => (
 			<Switch>
 				<App exact path='/' component={HomePage} />
 				<App exact path='/projects' component={ProjectPage} />
+                <App exact path="/projects/:_id" component={ProjectViewPage}/>
                 <App exact path='/account' component={AccountPage} />
 				<Auth exact path='/login' component={LoginPage} />
 			</Switch>
