@@ -58,7 +58,7 @@ class ProjectCreateModal extends Component {
 
                 notify.show( message, 'success', 5000, null );
 
-                this.props.data.refetch();
+                this.props.ProjectList.refetch();
 
                 this.setState({ loading: false, fields : FIELDS });
             } );

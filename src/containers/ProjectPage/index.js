@@ -19,7 +19,7 @@ class ProjectPage extends Component {
 	renderHeader () {
 		return (
 			<Segment basic vertical>
-				<ProjectCreateModal {...this.props} />
+				<ProjectCreateModal auth={this.props.auth} ProjectList={this.props.data}/>
 				<Header title='Projects' />
 			</Segment>
 		);
