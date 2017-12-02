@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import { Header, Table, Dimmer, Loader, Segment } from 'semantic-ui-react';
 import moment from 'moment';
 
+import { isAdmin } from 'utils/roles';
+
 class ProjectList extends Component {
     constructor () {
         super ();
@@ -23,6 +25,12 @@ class ProjectList extends Component {
     }
 
     renderTableHeader () {
+        let th = null;
+
+        if ( isAdmin() ) {
+            th = <Table.HeaderCell>Created by</Table.HeaderCell>;
+        }
+
         return (
             <Table.Header>
                 <Table.Row>
@@ -30,14 +38,28 @@ class ProjectList extends Component {
                     <Table.HeaderCell>Type</Table.HeaderCell>
                     <Table.HeaderCell>Location</Table.HeaderCell>
                     <Table.HeaderCell>Status</Table.HeaderCell>
+                    <Table.HeaderCell>Permission</Table.HeaderCell>
                     <Table.HeaderCell>Date Created</Table.HeaderCell>
+                    {th}
                 </Table.Row>
             </Table.Header>
         );
     }
 
     renderTableRow ( values, key ) {
-        const { name, type, state, status, createdAt } = values;
+        const { name, type, state, status, createdAt, permission, owner } = values;
+
+        let status_permission = '';
+
+        if ( permission.name == null ) {
+            status_permission = 'Submitted';
+        }
+
+        let tc = null;
+
+        if ( isAdmin() ) {
+            tc = <Table.Cell>{owner.name}</Table.Cell>;
+        }
 
         return (
             <Table.Row key={key} onClick={() => this.handleSelect( values )}>
@@ -47,7 +69,9 @@ class ProjectList extends Component {
                 <Table.Cell>{type.name}</Table.Cell>
                 <Table.Cell>{state.name}</Table.Cell>
                 <Table.Cell>{status.name}</Table.Cell>
+                <Table.Cell>{status_permission}</Table.Cell>
                 <Table.Cell>{moment(createdAt).format('ll')}</Table.Cell>
+                {tc}
             </Table.Row>
         );
     }

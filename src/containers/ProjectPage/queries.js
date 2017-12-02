@@ -23,6 +23,10 @@ export default gql`
                 createdAt
                 updatedAt
             }
+            owner {
+                _id
+                name   
+            }
             createdAt
             updatedAt
     	}
