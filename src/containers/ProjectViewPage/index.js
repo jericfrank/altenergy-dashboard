@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import { Segment, Loader, Divider, Dropdown } from 'semantic-ui-react';
+import { notify } from 'react-notify-toast';
 
 import Header from 'components/Header';
 
+import mutation from './mutations';
 import query from './queries';
 
 class ProjectViewPage extends Component {
@@ -14,7 +16,17 @@ class ProjectViewPage extends Component {
     }
 
     handleDelete () {
-        console.log( 'Delete!' );
+        const { projects_select } = this.props.data;
+
+        this.props.mutate({
+            variables: {
+                _id : projects_select._id,
+            }
+        }).then( ( res ) => {
+            notify.show( 'Deleted Successful', 'success', 5000, null );
+
+            this.props.history.push( `/projects` );
+        } );
     }
 
     render() {
@@ -47,6 +59,8 @@ class ProjectViewPage extends Component {
     }
 }
 
-export default graphql( query, {
-  options: ( props ) => { return { variables: { _id: props.computedMatch.params._id } } }
-})( ProjectViewPage );
+export default graphql( mutation ) (
+    graphql( query, {
+        options: ( props ) => { return { variables: { _id: props.computedMatch.params._id } } }
+    })( ProjectViewPage )
+);

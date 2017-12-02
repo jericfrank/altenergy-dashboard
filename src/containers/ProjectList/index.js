@@ -14,6 +14,10 @@ class ProjectList extends Component {
         this.handleSelect = this.handleSelect.bind( this );
     }
 
+    componentWillMount () {
+        this.props.data.refetch();
+    }
+
     handleSelect ( { _id } ) {
         this.props.history.push( `projects/${_id}` );
     }

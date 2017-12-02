@@ -58,7 +58,7 @@ class ProjectCreateModal extends Component {
 
                 notify.show( message, 'success', 5000, null );
 
-                this.props.ProjectList.refetch();
+                this.props.parent.data.refetch();
 
                 this.setState({ loading: false, fields : FIELDS });
             } );
@@ -134,7 +134,7 @@ class ProjectCreateModal extends Component {
 }
 
 ProjectCreateModal.propTypes = {
-    auth : PropTypes.object.isRequired,
+    parent : PropTypes.object,
 };
 
 export default graphql( mutation )(
