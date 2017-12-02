@@ -40,6 +40,8 @@ class ProjectViewPage extends Component {
             );
         }
 
+        console.log( this.props );
+
         return (
             <div>
                 <Segment basic vertical floated='right' style={{ zIndex : 1 }}>

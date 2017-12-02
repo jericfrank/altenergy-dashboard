@@ -15,6 +15,10 @@ export default gql`
                 name
                 email
                 username
+                role {
+                    _id
+                    role
+                }
                 createdAt
                 updatedAt
             }

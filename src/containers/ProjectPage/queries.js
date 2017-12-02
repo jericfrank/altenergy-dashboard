@@ -17,6 +17,12 @@ export default gql`
                 _id
                 name
             }
+            permission {
+                _id
+                name
+                createdAt
+                updatedAt
+            }
             createdAt
             updatedAt
     	}
