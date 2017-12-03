@@ -22,7 +22,7 @@ import LoginPage from 'containers/LoginPage';
 import 'semantic-ui-css/semantic.min.css';
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/gql',
+    uri: 'http://ec2-13-59-87-238.us-east-2.compute.amazonaws.com:8080/gql',
 });
 
 const authLink = setContext((_, { headers }) => {

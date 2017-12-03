@@ -29,6 +29,7 @@ class ProjectViewDetails extends Component {
         };
 
         this.renderBasic      = this.renderBasic.bind( this );
+        this.renderLocation   = this.renderLocation.bind( this );
         this.renderPermission = this.renderPermission.bind( this );
 
         this.handleSave   = this.handleSave.bind( this );
@@ -111,6 +112,27 @@ class ProjectViewDetails extends Component {
 		);
 	}
 
+	renderLocation () {
+		const { country, region, local_council } = this.props.data.projects_select.location;
+
+		console.log( this.props.data.projects_select.location );
+
+		return (
+			<Table>
+				<Table.Header>
+					<Table.Row>
+			    		<Table.HeaderCell colSpan='2'>Location</Table.HeaderCell>
+			    	</Table.Row>
+			    </Table.Header>
+				<Table.Body>
+					<Tr label='Country' value={country} />
+					<Tr label='Region' value={region} />
+					<Tr label='Local Council' value={local_council} />
+				</Table.Body>
+			</Table>
+		);
+	}
+
 	render() {
 		return (
 			<Grid>
@@ -121,6 +143,11 @@ class ProjectViewDetails extends Component {
 					<Grid.Column width={8}>
 						{ ( isAdmin() ? this.renderPermission() : '' ) }
 						{this.renderBasic()}
+					</Grid.Column>
+				</Grid.Row>
+				<Grid.Row>
+					<Grid.Column width={8}>
+						{this.renderLocation()}
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
