@@ -49,12 +49,6 @@ class ProjectList extends Component {
     renderTableRow ( values, key ) {
         const { name, type, state, status, createdAt, permission, owner } = values;
 
-        let status_permission = '';
-
-        if ( permission.name == null ) {
-            status_permission = 'Submitted';
-        }
-
         let tc = null;
 
         if ( isAdmin() ) {
@@ -69,7 +63,7 @@ class ProjectList extends Component {
                 <Table.Cell>{type.name}</Table.Cell>
                 <Table.Cell>{state.name}</Table.Cell>
                 <Table.Cell>{status.name}</Table.Cell>
-                <Table.Cell>{status_permission}</Table.Cell>
+                <Table.Cell>{permission.name}</Table.Cell>
                 <Table.Cell>{moment(createdAt).format('ll')}</Table.Cell>
                 {tc}
             </Table.Row>
