@@ -25,22 +25,22 @@ class ProjectList extends Component {
     }
 
     renderTableHeader () {
-        let th = null;
+        const TH = [
+            'Name', 'Type', 'Location', 'Status', 'Permission', 'Date Created'
+        ];
 
         if ( isAdmin() ) {
-            th = <Table.HeaderCell>Created by</Table.HeaderCell>;
+            TH.push('Created by');
         }
 
         return (
             <Table.Header>
                 <Table.Row>
-                    <Table.HeaderCell>Name</Table.HeaderCell>
-                    <Table.HeaderCell>Type</Table.HeaderCell>
-                    <Table.HeaderCell>Location</Table.HeaderCell>
-                    <Table.HeaderCell>Status</Table.HeaderCell>
-                    <Table.HeaderCell>Permission</Table.HeaderCell>
-                    <Table.HeaderCell>Date Created</Table.HeaderCell>
-                    {th}
+                    {_.map( TH, (value, key) => {
+                        return (
+                            <Table.HeaderCell key={key}>{value}</Table.HeaderCell>
+                        );
+                    } )}
                 </Table.Row>
             </Table.Header>
         );

@@ -3,6 +3,8 @@ import { graphql } from 'react-apollo';
 import { Segment, Loader, Divider, Dropdown } from 'semantic-ui-react';
 import { notify } from 'react-notify-toast';
 
+import ProjectViewDetails from 'containers/ProjectViewDetails';
+
 import Header from 'components/Header';
 
 import mutation from './mutations';
@@ -12,6 +14,10 @@ class ProjectViewPage extends Component {
     constructor () {
         super ();
 
+        this.state = {
+            visible : false
+        };
+        
         this.handleDelete = this.handleDelete.bind( this );
     }
 
@@ -40,11 +46,9 @@ class ProjectViewPage extends Component {
             );
         }
 
-        console.log( this.props );
-
         return (
             <div>
-                <Segment basic vertical floated='right' style={{ zIndex : 1 }}>
+                <Segment basic vertical floated='right' style={{ zIndex : 1, margin : 0 }}>
                     <Dropdown text='Options' icon='cogs' floating labeled button className='icon'>
                         <Dropdown.Menu>
                             <Dropdown.Item>Edit</Dropdown.Item>
@@ -56,6 +60,9 @@ class ProjectViewPage extends Component {
                     <Header title={`Projects - ${projects_select.name}`} />
                 </Segment>
                 <Divider hidden/>
+                <Segment basic vertical>
+                    <ProjectViewDetails {...this.props}/>
+                </Segment>
             </div>
         );
     }
