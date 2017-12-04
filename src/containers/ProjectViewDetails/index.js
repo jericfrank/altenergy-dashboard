@@ -73,7 +73,7 @@ class ProjectViewDetails extends Component {
 		_.map( permissions, ( values, key ) => options.push({ text: values.name, value: values._id }) );
 
 		return (
-			<Table>
+			<Table selectable>
 				<Table.Header>
 					<Table.Row>
 			    		<Table.HeaderCell colSpan='2'>Administrator Options</Table.HeaderCell>
@@ -100,7 +100,7 @@ class ProjectViewDetails extends Component {
 		const { name, type, status, state } = this.props.data.projects_select;
 
 		return (
-			<Table>
+			<Table selectable>
 				<Table.Header>
 					<Table.Row>
 			    		<Table.HeaderCell colSpan='2'>Basic</Table.HeaderCell>
@@ -121,7 +121,7 @@ class ProjectViewDetails extends Component {
 		const { location } = FORM_FIELDS;
 
 		return (
-			<Table>
+			<Table selectable>
 				<Table.Header>
 					<Table.Row>
 						<Table.HeaderCell colSpan='2'>{location.label}</Table.HeaderCell>
@@ -143,7 +143,7 @@ class ProjectViewDetails extends Component {
 		const { technical } = FORM_FIELDS;
 
 		return (
-			<Table>
+			<Table selectable>
 				<Table.Header>
 					<Table.Row>
 			    		<Table.HeaderCell colSpan='2'>{technical.label}</Table.HeaderCell>
@@ -165,7 +165,7 @@ class ProjectViewDetails extends Component {
 		const { contracts } = FORM_FIELDS;
 
 		return (
-			<Table>
+			<Table selectable>
 				<Table.Header>
 					<Table.Row>
 			    		<Table.HeaderCell colSpan='2'>{contracts.label}</Table.HeaderCell>
@@ -186,25 +186,19 @@ class ProjectViewDetails extends Component {
 		return (
 			<Grid>
 				<Grid.Row>
-					<Grid.Column width={8}>
+					<Grid.Column width={4}>
 						<Image src={img} />
-					</Grid.Column>
-					<Grid.Column width={8}>
 						{ ( isAdmin() ? this.renderPermission() : '' ) }
 						{this.renderBasic()}
 					</Grid.Column>
-				</Grid.Row>
-				<Grid.Row>
-					<Grid.Column width={8}>
-						{this.renderLocation()}
-					</Grid.Column>
-					<Grid.Column width={8}>
+					<Grid.Column width={4}>
 						{this.renderTechInfo()}
 					</Grid.Column>
-				</Grid.Row>
-				<Grid.Row>
-					<Grid.Column width={8}>
+					<Grid.Column width={4}>
 						{this.renderContracts()}
+					</Grid.Column>
+					<Grid.Column width={4}>
+						{this.renderLocation()}
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
