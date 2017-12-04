@@ -4,6 +4,8 @@ import { graphql } from 'react-apollo';
 import { Grid, Image, Table, Dropdown, Button } from 'semantic-ui-react';
 import { notify } from 'react-notify-toast';
 
+import { FORM_FIELDS } from 'containers/ProjectCreateModal/constants';
+
 import { isAdmin } from 'utils/roles';
 
 import mutation from './mutations';
@@ -31,6 +33,8 @@ class ProjectViewDetails extends Component {
         this.renderBasic      = this.renderBasic.bind( this );
         this.renderLocation   = this.renderLocation.bind( this );
         this.renderPermission = this.renderPermission.bind( this );
+		this.renderTechInfo   = this.renderTechInfo.bind( this );
+		this.renderContracts  = this.renderContracts.bind( this );
 
         this.handleSave   = this.handleSave.bind( this );
         this.handleChange = this.handleChange.bind( this );
@@ -113,21 +117,66 @@ class ProjectViewDetails extends Component {
 	}
 
 	renderLocation () {
-		const { country, region, local_council } = this.props.data.projects_select.location;
-
-		console.log( this.props.data.projects_select.location );
+		const prop          = this.props.data.projects_select.location;
+		const { location } = FORM_FIELDS;
 
 		return (
 			<Table>
 				<Table.Header>
 					<Table.Row>
-			    		<Table.HeaderCell colSpan='2'>Location</Table.HeaderCell>
+						<Table.HeaderCell colSpan='2'>{location.label}</Table.HeaderCell>
+					</Table.Row>
+				</Table.Header>
+				<Table.Body>
+					{ _.map( location.fields, ( value, key ) => {
+						return (
+							<Tr key={key} label={value.label} value={prop[key]} />
+						);
+					} ) }
+				</Table.Body>
+			</Table>
+		);
+	}
+
+	renderTechInfo () {
+		const prop          = this.props.data.projects_select.tech_info;
+		const { technical } = FORM_FIELDS;
+
+		return (
+			<Table>
+				<Table.Header>
+					<Table.Row>
+			    		<Table.HeaderCell colSpan='2'>{technical.label}</Table.HeaderCell>
 			    	</Table.Row>
 			    </Table.Header>
 				<Table.Body>
-					<Tr label='Country' value={country} />
-					<Tr label='Region' value={region} />
-					<Tr label='Local Council' value={local_council} />
+					{ _.map( technical.fields, ( value, key ) => {
+						return (
+							<Tr key={key} label={value.label} value={prop[key]} />
+						);
+					} ) }
+				</Table.Body>
+			</Table>
+		);
+	}
+
+	renderContracts () {
+		const prop          = this.props.data.projects_select.electricity_contract;
+		const { contracts } = FORM_FIELDS;
+
+		return (
+			<Table>
+				<Table.Header>
+					<Table.Row>
+			    		<Table.HeaderCell colSpan='2'>{contracts.label}</Table.HeaderCell>
+			    	</Table.Row>
+			    </Table.Header>
+				<Table.Body>
+					{ _.map( contracts.fields, ( value, key ) => {
+						return (
+							<Tr key={key} label={value.label} value={prop[key]} />
+						);
+					} ) }
 				</Table.Body>
 			</Table>
 		);
@@ -148,6 +197,14 @@ class ProjectViewDetails extends Component {
 				<Grid.Row>
 					<Grid.Column width={8}>
 						{this.renderLocation()}
+					</Grid.Column>
+					<Grid.Column width={8}>
+						{this.renderTechInfo()}
+					</Grid.Column>
+				</Grid.Row>
+				<Grid.Row>
+					<Grid.Column width={8}>
+						{this.renderContracts()}
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
