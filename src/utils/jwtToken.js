@@ -9,6 +9,8 @@ import CryptoJS from 'crypto-js';
  * @return {Object} Returns the decoded token
  */
 export function handleJwtToken ( { token, user } ) {
+	console.log( user );
+	
 	const encrypt = CryptoJS.AES.encrypt( JSON.stringify( user ), token );
 
 	localStorage.setItem( 'AltenergyUser', encrypt );
@@ -23,7 +25,7 @@ export function handleJwtToken ( { token, user } ) {
 export function expireJwtToken () {
 	localStorage.removeItem( 'AltenergyToken' );
 	localStorage.removeItem( 'AltenergyUser' );
-	
+
 	return null;
 }
 
