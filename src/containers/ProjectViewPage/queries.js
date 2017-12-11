@@ -68,6 +68,9 @@ export default gql`
                 createdAt
                 updatedAt
             }
+            image {
+                key
+            }
             createdAt
             updatedAt
         }

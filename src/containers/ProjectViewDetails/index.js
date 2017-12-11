@@ -6,6 +6,8 @@ import { notify } from 'react-notify-toast';
 
 import { FORM_FIELDS } from 'containers/ProjectCreateModal/constants';
 
+import ProjectViewUploader from 'containers/ProjectViewUploader';
+
 import { isAdmin } from 'utils/roles';
 
 import mutation from './mutations';
@@ -189,6 +191,7 @@ class ProjectViewDetails extends Component {
 					<Grid.Column width={4}>
 						<Image src={img} />
 						{ ( isAdmin() ? this.renderPermission() : '' ) }
+						<ProjectViewUploader { ...this.props } />
 						{this.renderBasic()}
 					</Grid.Column>
 					<Grid.Column width={4}>
