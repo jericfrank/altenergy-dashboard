@@ -1,18 +1,20 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
-import { Grid, Image, Table, Dropdown, Button } from 'semantic-ui-react';
+import { Grid, Table, Dropdown, Button } from 'semantic-ui-react';
 import { notify } from 'react-notify-toast';
+import axios from 'axios';
 
 import { FORM_FIELDS } from 'containers/ProjectCreateModal/constants';
-
 import ProjectViewUploader from 'containers/ProjectViewUploader';
+
+import ImageComponent from 'components/Image';
 
 import { isAdmin } from 'utils/roles';
 
+import DefaultImage from './default.jpg';
 import mutation from './mutations';
 import query from './queries';
-import img from './solarpanel.jpg';
 
 const Tr = ( { label, value } ) => {
 	return (
@@ -29,7 +31,8 @@ class ProjectViewDetails extends Component {
 
         this.state = {
         	value   : props.data.projects_select.permission._id,
-        	loading : false
+        	loading : false,
+			img     : ''
         };
 
         this.renderBasic      = this.renderBasic.bind( this );
@@ -38,9 +41,15 @@ class ProjectViewDetails extends Component {
 		this.renderTechInfo   = this.renderTechInfo.bind( this );
 		this.renderContracts  = this.renderContracts.bind( this );
 
+		this.getImage  = this.getImage.bind( this );
+
         this.handleSave   = this.handleSave.bind( this );
         this.handleChange = this.handleChange.bind( this );
 	}
+
+	componentDidMount () {
+        this.getImage( this.props.data.projects_select.image.key );
+    }
 
 	handleSave () {
 		this.setState({ loading: true });
@@ -184,14 +193,24 @@ class ProjectViewDetails extends Component {
 		);
 	}
 
+	getImage ( key ) {
+		if ( key === null ) {
+			this.setState({ img: DefaultImage });
+		} else {
+			axios.get(`http://localhost:8080/api/v1/projects/retrive?key=${key}`).then( ( response ) => {
+				this.setState({ img: response.data.data });
+			});
+		}
+	}
+
 	render() {
 		return (
 			<Grid>
 				<Grid.Row>
 					<Grid.Column width={4}>
-						<Image src={img} />
+						<ImageComponent path={this.state.img} />
 						{ ( isAdmin() ? this.renderPermission() : '' ) }
-						<ProjectViewUploader { ...this.props } />
+						<ProjectViewUploader { ...this.props } handleGetImage={ ( key ) => this.getImage( key ) }/>
 						{this.renderBasic()}
 					</Grid.Column>
 					<Grid.Column width={4}>

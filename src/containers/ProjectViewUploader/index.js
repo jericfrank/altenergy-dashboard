@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Table, Button, Input } from 'semantic-ui-react';
+import { Table, Input, Loader } from 'semantic-ui-react';
+import { notify } from 'react-notify-toast';
 
 import axios from 'axios';
 
@@ -7,22 +8,32 @@ class ProjectViewUploader extends Component {
 	constructor () {
 		super ();
 
+		this.state = {
+			loading: false
+		};
+
 		this.handleChange = this.handleChange.bind( this );
 	}
 
 	handleChange ( e ) {
+		this.setState({ loading: true });
+
 		let data = new FormData();
 
 		data.append('file', e.target.files[0]);
 
-		axios.post(`http://localhost:8080/api/v1/projects/upload?project_id=${this.props.data.projects_select._id}`, data).then( ( response ) => {
-			console.log( response ); // do something with the response
+		axios.post(`http://localhost:8080/api/v1/projects/upload?project_id=${this.props.data.projects_select._id}`, data).then( ( { data } ) => {
+			this.props.data.refetch();
+
+			this.props.handleGetImage( data.data.images.key );
+
+			this.setState({ loading: false });
+
+			notify.show( 'Upload complete! Please wait image will appear shortly.', 'success', 2000, null );
 		});
 	}
 
 	render() {
-		console.log( this.props.data.projects_select );
-
 		return (
             <Table selectable>
                 <Table.Header>
@@ -32,14 +43,9 @@ class ProjectViewUploader extends Component {
                 </Table.Header>
                 <Table.Body>
                     <Table.Row>
-                        <Table.Cell>Image</Table.Cell>
                         <Table.Cell>
-                            <Input size='small' type='file' onChange={this.handleChange} />
-                        </Table.Cell>
-                    </Table.Row>
-                    <Table.Row >
-                        <Table.Cell textAlign='right' colSpan='2'>
-                            <Button primary loading={false} content='Upload' />
+							<Loader active={this.state.loading} inline='centered' content='uploading please wait...' />
+                            <Input size='small' type={ ( this.state.loading ) ? 'hidden' : 'file' } onChange={this.handleChange} />
                         </Table.Cell>
                     </Table.Row>
                 </Table.Body>
