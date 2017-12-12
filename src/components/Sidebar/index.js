@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Dropdown, Menu, Image } from 'semantic-ui-react';
 
 import { expireJwtToken } from 'utils/jwtToken';
+import { PAGES_URI } from 'utils/request';
 
 import Logo from './logo.png';
 import Avatar from './avatar.jpg';
@@ -19,11 +20,15 @@ class SidebarComponent extends Component {
 	}
 
 	handleLogout () {
+		const token = localStorage.getItem('AltenergyToken');
+		
 		expireJwtToken();
 
 		this.props.client.resetStore();
 
-		this.props.history.push( '/login' );
+		// this.props.history.push( '/login' );
+
+		window.location.href = `${PAGES_URI}/?token=${token}&logout=true`;
 	}
 
 	render () {
