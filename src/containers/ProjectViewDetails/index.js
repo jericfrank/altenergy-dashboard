@@ -11,6 +11,7 @@ import ProjectViewUploader from 'containers/ProjectViewUploader';
 import ImageComponent from 'components/Image';
 
 import { isAdmin } from 'utils/roles';
+import { HOST_URI } from 'utils/request';
 
 import DefaultImage from './default.jpg';
 import mutation from './mutations';
@@ -197,7 +198,7 @@ class ProjectViewDetails extends Component {
 		if ( key === null ) {
 			this.setState({ img: DefaultImage });
 		} else {
-			axios.get(`http://localhost:8080/api/v1/projects/retrive?key=${key}`).then( ( response ) => {
+			axios.get(`${HOST_URI}/api/v1/projects/retrive?key=${key}`).then( ( response ) => {
 				this.setState({ img: response.data.data });
 			});
 		}

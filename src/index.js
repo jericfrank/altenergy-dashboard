@@ -9,6 +9,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory';
 import { setContext } from 'apollo-link-context';
 
 import registerServiceWorker from 'utils/registerServiceWorker';
+import { HOST_URI } from 'utils/request';
 
 import App from 'layouts/App';
 import Auth from 'layouts/Auth';
@@ -22,7 +23,7 @@ import LoginPage from 'containers/LoginPage';
 import 'semantic-ui-css/semantic.min.css';
 
 const httpLink = createHttpLink({
-    uri: 'http://localhost:8080/gql',
+    uri: `${HOST_URI}/gql`,
 });
 
 const authLink = setContext((_, { headers }) => {

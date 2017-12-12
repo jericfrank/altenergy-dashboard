@@ -4,6 +4,8 @@ import { notify } from 'react-notify-toast';
 
 import axios from 'axios';
 
+import { HOST_URI } from 'utils/request';
+
 class ProjectViewUploader extends Component {
 	constructor () {
 		super ();
@@ -22,7 +24,7 @@ class ProjectViewUploader extends Component {
 
 		data.append('file', e.target.files[0]);
 
-		axios.post(`http://localhost:8080/api/v1/projects/upload?project_id=${this.props.data.projects_select._id}`, data).then( ( { data } ) => {
+		axios.post(`${HOST_URI}/api/v1/projects/upload?project_id=${this.props.data.projects_select._id}`, data).then( ( { data } ) => {
 			this.props.data.refetch();
 
 			this.props.handleGetImage( data.data.images.key );
