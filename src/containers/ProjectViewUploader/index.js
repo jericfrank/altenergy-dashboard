@@ -27,8 +27,6 @@ class ProjectViewUploader extends Component {
 		axios.post(`${HOST_URI}/api/v1/projects/upload?project_id=${this.props.data.projects_select._id}`, data).then( ( { data } ) => {
 			this.props.data.refetch();
 
-			this.props.handleGetImage( data.data.images.key );
-
 			this.setState({ loading: false });
 
 			notify.show( 'Upload complete! Please wait image will appear shortly.', 'success', 2000, null );

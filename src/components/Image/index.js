@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import { Image, Loader } from 'semantic-ui-react';
 
+import DefaultImage from 'containers/ProjectViewDetails/default.jpg';
+
 class ImageComponent extends Component {
 	render () {
-		const { path } = this.props;
+		let { path } = this.props;
+
+		if ( path === null ) {
+			path = DefaultImage;
+		}
 
 		return (
             <div>

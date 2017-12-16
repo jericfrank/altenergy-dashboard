@@ -70,6 +70,7 @@ export default gql`
             }
             image {
                 key
+                s3
             }
             createdAt
             updatedAt
